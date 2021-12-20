@@ -11,7 +11,7 @@
     <div class="container">
         {% for product in products %}
             <div class="card">
-                {% for image in product.media | slice(0, 1) %}
+                {% for image in product.media | slice(0,1) %}
                     <img src="{{ asset('media/' ~ image.src) }}" alt="{{ image.alt }}">
                 {% endfor %}
                 <h1><a href="{{ path('show_product', {'id' : product.id}) }}">{{ product.name }}</a></h1>

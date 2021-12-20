@@ -1,6 +1,28 @@
-.header{
-    display:flex;
+*{
+    margin: 0;
+    padding: 0;
 }
+
+header{
+    background-color: blueviolet;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+
+.menu, .footer{
+    display: flex;
+}
+
+.footer{
+    background: blueviolet;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+
+
 
 
 
@@ -9,6 +31,20 @@ img {
 }
 
 
-ul, li{
+ul{
     list-style-type: none;
+}
+
+li{
+    margin : 10px;
+}
+
+
+a {
+    text-decoration: none;
+    color: rgb(32, 32, 32);
+}
+
+a:hover{
+    color: grey;
 }

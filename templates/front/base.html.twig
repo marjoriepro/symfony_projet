@@ -16,36 +16,15 @@
 <body>
 
 <header >
-    <div class="header">
-        <ul>
-        <li></li>
+    <nav>
+        <ul class="menu">
+        <li><a href="{{ path('list_product') }}"> Accueil</a></li>
+        <li><a href="{{ path('list_category') }}">Catégories</a></li>
+        <li><a href="{{  path('list_licence') }}">Licences</a></li>
+        <li><a href="{{ path('list_product') }}">Produits</a></li>
+        <li><a href="#">Se connecter/S'inscrire </a></li>
         </ul>
-        
-        <div class="w20">
-            <a href="{{ path('list_product') }}">
-                Accueil
-            </a>
-        </div>
-        <div class="search">
-
-            <div class="categories">
-                <a href="{{ path('list_category') }}">Catégories</a>
-            </div>
-            <div class="licences">
-                <a href="{{  path('list_licence') }}">Licences</a>
-            </div>
-        </div>
-        <div class="w40">
-            <div class="basket">
-                <a href="{{ path('list_product') }}">Produits</a>
-            </div>
-            <div class="log">
-                <a href="#">
-                        Se connecter/S'inscrire
-                </a>
-            </div>
-        </div>
-    </div>
+    </nav>
 </header>
 
 <main class="main">

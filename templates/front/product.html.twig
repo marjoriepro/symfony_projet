@@ -5,6 +5,8 @@
 	<h2>{{ product.name }}</h2>
 	<h3>Prix : {{ product.price }} €</h3>
 	<h3>Stock : {{ product.stock }} pièces </h3>
+    <h4> Licence : {{ product.licence.name}} </h4>
+    <h4> Catégorie : {{ product.category.name }}</h4>
 
 	{% for image in product.media %}
 

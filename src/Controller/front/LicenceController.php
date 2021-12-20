@@ -24,4 +24,15 @@ class LicenceController extends AbstractController
         return $this->render('front/licences.html.twig', ['licences' => $licences]);
     }
 
+
+    /**
+     * @Route("front/licence/{id}", name="show_licence")
+     */
+    public function showLicence(LicenceRepository $licenceRepository, $id)
+    {
+        $licence = $licenceRepository->find($id);
+
+        return $this->render("front/licence.html.twig", ['licence' => $licence]);
+    }
+
 }
