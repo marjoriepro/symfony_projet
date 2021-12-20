@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Nicolas SAMPAIO">
+    <meta name="description" content="Site de e-commerce sur le super-héros">
+    <meta name="keywords" content="super-héros, superman, batman, jouets, jeux vidéos, statuette">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+
+    <title>{% block metaTitle %}{% endblock metaTitle %}</title>
+
+</head>
+<body>
+
+<header >
+    <div class="header">
+        <ul>
+        <li></li>
+        </ul>
+        
+        <div class="w20">
+            <a href="{{ path('list_product') }}">
+                Accueil
+            </a>
+        </div>
+        <div class="search">
+
+            <div class="categories">
+                <a href="{{ path('list_category') }}">Catégories</a>
+            </div>
+            <div class="licences">
+                <a href="{{  path('list_licence') }}">Licences</a>
+            </div>
+        </div>
+        <div class="w40">
+            <div class="basket">
+                <a href="{{ path('list_product') }}">Produits</a>
+            </div>
+            <div class="log">
+                <a href="#">
+                        Se connecter/S'inscrire
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+    {% block main %}
+    {% endblock main %}
+</main>
+
+<footer >
+    <div class="footer">
+        <div class="admin-infos">
+            <ul>
+                <li>
+                    <a href="">Informations</a>
+                </li>
+                <li>
+                    <a href="">Carrieres</a>
+                </li>
+                <li>
+                    <a href="">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="up">
+            <a href="#top">Retour en haut</a>
+        </div>
+        <div class="reseaux">
+            <ul>
+                <li><a href=""><i class="fab fa-facebook"></i></a></li>
+                <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                <li><a href=""><i class="fab fa-twitter"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

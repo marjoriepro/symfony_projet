@@ -1,0 +1,14 @@
+.header{
+    display:flex;
+}
+
+
+
+img {
+    width: 15%;
+}
+
+
+ul, li{
+    list-style-type: none;
+}

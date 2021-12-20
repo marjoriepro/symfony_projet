@@ -1,0 +1,18 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+    <div class="container">
+        {% for licence in licences %}
+            <div class="card br">
+
+            <h1>{{ licence.name }} </h1>
+                <img src="{{ asset('media/' ~ licence.media) }}">
+                <h2>
+                    {{ licence.description }}
+                </h2>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

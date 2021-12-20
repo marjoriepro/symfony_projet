@@ -1,0 +1,15 @@
+{% extends "front/base.html.twig" %}
+
+{% block main %}
+
+	<h2>{{ product.name }}</h2>
+	<h3>Prix : {{ product.price }} €</h3>
+	<h3>Stock : {{ product.stock }} pièces </h3>
+
+	{% for image in product.media %}
+
+		<img src="{{ asset('media/' ~ image.src) }}" alt="{{ image.alt }}">
+
+	{% endfor %}
+
+{% endblock %}

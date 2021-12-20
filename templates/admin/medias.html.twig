@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+
+     <div class="add-product">
+         <a href="{{ path('admin_media_add') }}" class="add">Ajouter une image</a>
+    </div>
+
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+        {% for media in medias %}
+            <div class="card">
+                <h1>{{ media.title }}</h1>
+                <img src="{{ asset('media/' ~ media.src) }}">
+                 <a href="{{ path('admin_delete_media', {'id' : media.id} ) }}" class="delete">Supprimer l'image</a>
+                 <a href="{{ path('admin_update_media', {'id' : media.id} ) }}" class="update">Modifier l'image</a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+   
+
+{% endblock %}

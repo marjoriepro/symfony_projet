@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block metaTitle %}
+    Ajout ou modification de produits
+{% endblock metaTitle %}
+
+{% block main %}
+    <div class="container-fluid1">
+        <div class="row1 licence w95">
+            <h1>Vous pouvez rajouter ou modifier un produit</h1>
+
+            {{ form(productForm) }}
+        </div>
+
+    <style>
+        label img{
+            width : 100px;
+            height: auto;
+        }
+        .under{
+            text-decoration: underline;
+        }
+    </style>
+{% endblock main %}
+

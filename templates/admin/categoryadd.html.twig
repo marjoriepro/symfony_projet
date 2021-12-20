@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block metaTitle %}
+    Ajout ou modification de catégorie
+{% endblock metaTitle %}
+
+{% block main %}
+    <div class="container-fluid1">
+        <div class="row1 licence w95">
+            <h1>Vous pouvez ajouter ou modifier une catégorie</h1>
+
+            {{ form(categoryForm) }}
+        </div>
+    </div>
+{% endblock main %}
