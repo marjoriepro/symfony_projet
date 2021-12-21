@@ -21,7 +21,12 @@
         <li><a href="{{ path('admin_list_category') }}">Catégories</a></li>
         <li><a href="{{  path('admin_list_licence') }}">Licences</a></li>
         <li><a href="{{ path('admin_list_product') }}">Produits</a></li>
-        <li><a href="#">Se connecter/S'inscrire </a></li>
+        <li><a href="{{ path('app_login') }}">
+        {% if app.user %}
+        {{app.user.email}}
+        {% endif %}
+        {% if app.user is null %} Se connecter/S'inscrire {% endif %}
+        </a></li>
         </ul>
     </nav>
 </header>

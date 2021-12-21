@@ -18,11 +18,16 @@
 <header >
     <nav>
         <ul class="menu">
-        <li><a href="{{ path('list_product') }}"> Accueil</a></li>
+        <li><a href="{{ path('front_home') }}"> Accueil</a></li>
         <li><a href="{{ path('list_category') }}">Catégories</a></li>
         <li><a href="{{  path('list_licence') }}">Licences</a></li>
         <li><a href="{{ path('list_product') }}">Produits</a></li>
-        <li><a href="#">Se connecter/S'inscrire </a></li>
+        <li><a href="{{ path('app_login') }}">
+        {% if app.user %}
+        {{app.user.email}}
+        {% endif %}
+        {% if app.user is null %} Se connecter/S'inscrire {% endif %}
+        </a></li>
         </ul>
     </nav>
 </header>
