@@ -5,10 +5,10 @@
 	<h1>Bienvenue sur Super-eDiscount</h1>
 	<h2>Vous trouverez tous sur les super-héros et leurs produits dérivés</h2>
 	<div class="alea">
-		{% for product  in category.products | slice(0, 2) %}
-			<div class="col">
+		{% for product  in category.products | slice(0, 5) %}
+			<div>
 				<a href="{{ path('show_product', {'id' : product.id}) }}">
-					<img src="{{ product.media[0].src }}" alt="{{ product.media[0].alt }}">
+					<img src="{{ asset('media/' ~ product.media[0].src) }}">
 				</a>
 			</div>
 		{% endfor %}

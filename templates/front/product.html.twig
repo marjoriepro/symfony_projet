@@ -14,4 +14,38 @@
 
 	{% endfor %}
 
+	 <div class="comment">
+        <div>
+            <h3>Commentaires</h3>
+        </div>
+        {% for comment in product.comments %}
+		
+            <h4>Par {{ comment.user.firstname}} {{ comment.user.name }}, le {{ comment.date | date('d-m-y') }}</h4>
+            <p>{{ comment.content }}</p>
+    
+
+		{% if app.user is same as(comment.user) %}
+		
+			<a href="{{ path('update_comment', {'id' : comment.id})}}">Modifier le commentaire</a>
+            <a href="{{ path('delete_comment', {'id' : comment.id})}}">Supprimer le commentaire</a>
+		
+		{% endif %}
+
+		{% endfor %}
+
+        {% if app.user %}
+            <div>
+                {{ form(commentForm) }}
+            </div>
+
+            {% else %}
+
+            <div>
+                <p>Vous devez être connecté pour écrire un commentaire</p>
+            </div>
+
+        {% endif %}
+    </div>
+
+
 {% endblock %}

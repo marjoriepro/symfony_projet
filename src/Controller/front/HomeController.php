@@ -13,13 +13,12 @@ class HomeController extends AbstractController
      */
     public function home(CategoryRepository $categoryRepository)
     {
-        $categories = $categoryRepository->findAll();
-        $id = rand(1, count($categories));
+        $id = rand(1, 10);
         $category = $categoryRepository->find($id);
         if ($category) {
             return $this->render('front/home.html.twig', ['category' => $category]);
         } else {
-            return $this->redirectToRoute('list_product');
+            return $this->redirectToRoute('front_home');
         }
     }
 }

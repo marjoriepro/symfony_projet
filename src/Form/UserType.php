@@ -15,9 +15,15 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('password', PasswordType::class, 
+            ->add('name')
+            ->add('firstname')
+            ->add('adress')
+            ->add('zipcode')
+            ->add('card_number')
+            ->add('card_name')
+            ->add('password',PasswordType::class, 
             ['mapped' => false])
-            ->add('Inscription', SubmitType::class )
+            ->add('Inscription', SubmitType::class)
             
         ;
     }
