@@ -2,20 +2,30 @@
 
 
 {%  block main %}
-	<h1>Bienvenue sur Super-eDiscount</h1>
-	<h2>Vous trouverez tous sur les super-héros et leurs produits dérivés</h2>
-	<div class="alea">
-		{% for product  in category.products | slice(0, 5) %}
+
+
+<div class="jumbotron container">
+  <h1 class="display-4">Bienvenue sur Super-eDiscount</h1>
+  <p class="lead">Vous trouverez tous sur les super-héros et leurs produits dérivés</p>
+  <hr class="my-4">
+  {% for product in category.products | slice(0,2) %}
 			<div>
 				<a href="{{ path('show_product', {'id' : product.id}) }}">
-					<img src="{{ asset('media/' ~ product.media[0].src) }}">
+					<img src="{{ product.media[0].src }}" alt="{{ product.media[0].alt }}">
 				</a>
 			</div>
 		{% endfor %}
+  <a class="btn btn-primary btn-lg mt-2" href="{{ path('list_product') }}" role="button">EN SAVOIR PLUS !</a>
+</div>
+
+
+
+	<h1></h1>
+	<h2></h2>
+	<div class="alea">
+		
 	</div>
 	<div class="plus">
-		<a href="{{ path('list_product') }}">
-			EN SAVOIR PLUS !
-		</a>
+
 	</div>
 {%  endblock %}

@@ -1,16 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}Log in!
 {% endblock %}
 
-{% block body %}
+{% block main %}
 	<form method="post">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 		{% endif %}
 
 		{% if app.user %}
-			<div class="mb-3">
+			<div class="mb-4 container">
 				You are logged in as
 				{{ app.user.email }},
 				<a href="{{ path('app_logout') }}">Logout</a>
@@ -28,15 +28,15 @@
 			<input
 			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			{#
-			        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-			        See https://symfony.com/doc/current/security/remember_me.html
-			
-			        <div class="checkbox mb-3">
-			            <label>
-			                <input type="checkbox" name="_remember_me"> Remember me
-			            </label>
-			        </div>
-			    #}
+						        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+						        See https://symfony.com/doc/current/security/remember_me.html
+						
+						        <div class="checkbox mb-3">
+						            <label>
+						                <input type="checkbox" name="_remember_me"> Remember me
+						            </label>
+						        </div>
+						    #}
 
 			<button class="btn btn-lg btn-primary" type="submit">
 				Sign in
@@ -45,22 +45,36 @@
 
 		<a href="{{ path('new_user')}}">S'inscrire</a>
 
-		
 
 	{% endif %}
 
-    {% if app.user %}
-			<a href="{{ path('update_user', {'id' : app.user.id }) }}">Modifier votre compte</a>
+	{% if app.user %}
+	<div class="container">
+	<a href="{{ path('update_user', {'id' : app.user.id }) }}" class="btn btn-primary">Modifier votre compte</a>
+		</div>
 
-            {% for comment in app.user.comments %}
-            <h3> {{ comment.product.name }}</h3>
-            <p>{{ comment.content }}</p>
+		{% for comment in app.user.comments %}
+		<div class="card container">
+			<div class="card-header">
+				Vos commentaires
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">{{ comment.product.name }}</h5>
+				<p class="card-text">{{ comment.content }}</p>
+				<a href="{{ path('front_update_comment', {'id' : comment.id})}}" class="btn btn-primary">Modifier le commentaire</a>
+				<a href="{{ path('front_delete_comment', {'id' : comment.id})}}" class="btn btn-secondary">Supprimer le commentaire</a>
 
-            <a href="{{ path('front_update_comment', {'id' : comment.id})}}">Modifier le commentaire</a>
-            <a href="{{ path('front_delete_comment', {'id' : comment.id})}}">Supprimer le commentaire</a>
-                
-            {% endfor %}
-		{% endif %}
+			</div>
+		</div>
+
+	
+			<h3>
+				
+			<p></p>
+
+		
+		{% endfor %}
+	{% endif %}
 
 
 {% endblock %}
