@@ -4,8 +4,10 @@
 namespace App\Controller\front;
 
 use App\Entity\Comment;
+use App\Entity\Dislike;
 use App\Entity\Like;
 use App\Form\CommentType;
+use App\Repository\DislikeRepository;
 use App\Repository\LikeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
@@ -84,42 +86,73 @@ class ProductController extends AbstractController
     }
 
 
-     /**
+      /**
      * @Route("/front/like/product/{id}", name="product_like")
      */
     public function likeProduct(
         $id,
         ProductRepository $productRepository,
         EntityManagerInterface $entityManagerInterface,
-        LikeRepository $likeRepository
+        LikeRepository $likeRepository,
+        DislikeRepository $dislikeRepository
     ) {
+
         $product = $productRepository->find($id);
         $user = $this->getUser();
 
         if (!$user) {
             return $this->json([
                 'code' => 403,
-                'message' => "Vous devez être connecté"
+                'message' => "Vous devez vous connecter"
             ], 403);
         }
 
         if ($product->isLikedByUser($user)) {
-            $like = $likeRepository->findOneBy([
-                'product' => $product,
-                'user' => $user
-            ]);
+            $like = $likeRepository->findOneBy(
+                [
+                    'product' => $product,
+                    'user' => $user
+                ]
+            );
 
             $entityManagerInterface->remove($like);
             $entityManagerInterface->flush();
 
             return $this->json([
                 'code' => 200,
-                'message' => "Le like a été supprimé",
+                'message' => "Like supprimé",
                 'likes' => $likeRepository->count(['product' => $product])
             ], 200);
         }
 
+        if ($product->isDislikedByUser($user)) {
+            $dislike = $dislikeRepository->findOneBy(
+                [
+                    'product' => $product,
+                    'user' => $user
+                ]
+            );
+
+            $entityManagerInterface->remove($dislike);
+
+            $like = new Like();
+
+            $like->setProduct($product);
+            $like->setUser($user);
+
+            $entityManagerInterface->persist($like);
+            $entityManagerInterface->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'like ajouté et dislike supprimé',
+                'likes' => $likeRepository->count(['product' => $product]),
+                'dislikes' => $dislikeRepository->count(['product' => $product])
+            ], 200);
+        }
+
         $like = new Like();
+
         $like->setProduct($product);
         $like->setUser($user);
 
@@ -128,8 +161,81 @@ class ProductController extends AbstractController
 
         return $this->json([
             'code' => 200,
-            'message' => "Le like a été enregistré",
+            'message' => "Like enregistré",
             'likes' => $likeRepository->count(['product' => $product])
+        ]);
+    }
+
+    /**
+     * @Route("/front/dislike/product/{id}", name="product_dislike")
+     */
+    public function dislikeProduct(
+        $id,
+        ProductRepository $productRepository,
+        EntityManagerInterface $entityManagerInterface,
+        DislikeRepository $dislikeRepository,
+        LikeRepository $likeRepository
+    ) {
+        $product = $productRepository->find($id);
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => "Vous devez vous connecter"
+            ], 403);
+        }
+
+        if ($product->isDislikedByUser($user)) {
+            $dislike = $dislikeRepository->findOneBy([
+                'product' => $product,
+                'user' => $user
+            ]);
+
+            $entityManagerInterface->remove($dislike);
+            $entityManagerInterface->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "Le dislike a été supprimé",
+                'dislikes' => $dislikeRepository->count(['product' => $product])
+            ], 200);
+        }
+
+        if ($product->isDislikedByUser($user)) {
+            $like = $likeRepository->findOneBy([
+                'product' => $product,
+                'user' => $user
+            ]);
+
+            $entityManagerInterface->remove($like);
+
+            $dislike = new Dislike();
+            $dislike->setProduct($product);
+            $dislike->setUser($user);
+
+            $entityManagerInterface->persist($dislike);
+            $entityManagerInterface->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "like supprimé et dislike ajouté",
+                'dislikes' => $dislikeRepository->count(['product' => $product]),
+                'likes' => $likeRepository->count(['product' => $product])
+            ], 200);
+        }
+
+        $dislike = new Dislike();
+        $dislike->setProduct($product);
+        $dislike->setUser($user);
+
+        $entityManagerInterface->persist($dislike);
+        $entityManagerInterface->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "Le dislike a été ajouté",
+            'dislikes' => $dislikeRepository->count(['product' => $product])
         ], 200);
     }
 

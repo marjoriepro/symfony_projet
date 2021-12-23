@@ -1,0 +1,32 @@
+{% extends "front/base.html.twig" %}
+
+
+{% block main %}
+
+    {% if items == [] %}
+
+        <h3> Votre panier est vide</h3>
+        {% else %}
+        
+         {% for item in items %}
+
+        <div>
+            <ul>
+            <li>{{ item.product.name }}</li>
+            <li> {{ item.product.price }}</li>
+           <li><img src=" {{ asset('media/' ~ item.product.media[0].src) }}"> </li> 
+            <li> {{ item.quantity }}</li>
+            <li><a href="{{ path('delete_cart', {'id' : item.product.id }) }}">Supprimer le produit</a></li>
+            
+            </ul>
+        </div>
+        
+    {% endfor %}
+            
+
+    {% endif %}
+
+   
+
+
+{% endblock %}

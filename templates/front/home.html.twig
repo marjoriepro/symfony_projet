@@ -11,7 +11,7 @@
   {% for product in category.products | slice(0,2) %}
 			<div>
 				<a href="{{ path('show_product', {'id' : product.id}) }}">
-					<img src="{{ product.media[0].src }}" alt="{{ product.media[0].alt }}">
+					<img src="{{ asset(product.media[0].src) }}">
 				</a>
 			</div>
 		{% endfor %}

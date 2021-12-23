@@ -61,10 +61,15 @@ class Product
      */
     private $likes;
 
-    /**
+        /**
      * @ORM\OneToMany(targetEntity=Dislike::class, mappedBy="product")
      */
     private $dislikes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Command::class, mappedBy="products")
+     */
+    private $commands;
 
     public function __construct()
     {
@@ -72,6 +77,7 @@ class Product
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->dislikes = new ArrayCollection();
+        $this->commands = new ArrayCollection();
     }
 
 
@@ -267,6 +273,44 @@ class Product
             if ($dislike->getProduct() === $this) {
                 $dislike->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function isDislikedByUser(User $user)
+    {
+        foreach($this->dislikes as $dislike)
+            if($dislike->getUser() === $user)
+            {
+                return true;
+            }
+            
+            return false;
+    }
+
+    /**
+     * @return Collection|Command[]
+     */
+    public function getCommands(): Collection
+    {
+        return $this->commands;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->removeElement($command)) {
+            $command->removeProduct($this);
         }
 
         return $this;
